@@ -1,0 +1,130 @@
+# Задача №1
+a = int(input())
+b = int(input())
+def HOD(a, b):
+  while b:
+    a, b = b, a % b
+  return a
+def HOK(a,b):
+    return (a/HOD(a,b))*b  
+print(int(HOK(a,b)))
+----------------------------------------------
+# Задача №2
+n = int(input())
+ 
+summa = 0
+ 
+while n > 0:
+    digit = n % 10
+    summa = summa + digit
+    n = n // 10
+ 
+print(summa)
+-----------------------------------------------
+# Задача №3
+n = int(input())
+ 
+def prime(number):
+    n = number
+    counter = 0
+    for i in range(1, n + 1):
+        if n % i == 0:
+            counter += 1
+    return True if counter == 2 else False
+
+print(prime(n))
+------------------------------------------------
+# Задача №4
+class Algebra:
+    def add(x, y):
+        return print(x+y)
+    def mult(x, y):
+        return print(x*y)
+    def divis(x, y):
+        if y != 0:
+            return print(x/y)
+        else:
+            return print('Деление невозможно')
+    def subst(x, y):
+        return print(x-y)
+    def sqrt(x):
+        return print(x**(1/2))
+    def pov(x, y):
+        return print(x**y)
+
+a = int(input())
+b = int(input())
+
+Algebra.add(a, b)
+Algebra.mult(a, b)
+Algebra.divis(a, b)
+Algebra.subst(a, b)
+Algebra.sqrt(a)
+Algebra.pov(a, b)
+-----------------------------------------------
+# Задача №5
+import string
+
+
+class Student:
+    def __init__(self, bilnum, FIO, rating):
+        value = str(bilnum).zfill(9)
+        self.bilnum = int(value)
+        self.FIO = str(FIO)
+        self.rating = int(rating)
+
+    def printinf(self):
+        print(f"('{self.FIO}', {int(self.bilnum)}, {self.rating})")
+
+    def change_rating(self, rating):
+        self.rating += int(rating)
+        if self.rating < 0:
+            self.rating = 0
+        if self.rating > 100:
+            self.rating = 100
+
+
+class Starosta(Student):
+    def __init__(self, journal):
+        self.journal = {journal.FIO: {journal.bilnum: journal.rating}}
+
+    def addstudent(self, journal):
+        self.journal[journal.FIO] = {journal.bilnum: journal.rating}
+
+    def removestudent(self, key):
+        self.journal.pop(key.FIO)
+
+    def showclass(self):
+        for key in sorted(self.journal.keys()):
+            print(f"{key} : {self.journal[key]} ")
+
+
+informations = []
+informations = [input() for i in range(0, 7)]
+
+firstly = informations[0]
+secondly = firstly.replace(string.punctuation, '')
+thridly = ''.join([i for i in secondly if not i.isdigit()])
+
+fourthly = informations[3]
+fifthly = fourthly.replace(string.punctuation, '')
+sixthly = ''.join([i for i in fifthly if not i.isdigit()])
+
+first_studend = Student(informations[1], thridly, informations[2])
+first_studend.printinf()
+
+first_studend.change_rating(informations[6])
+first_studend.printinf()
+
+second_student = Student(informations[4], sixthly, informations[5])
+second_student.printinf()
+
+Starosta = Starosta(first_studend)
+Starosta.showclass()
+
+Starosta.addstudent(second_student)
+Starosta.showclass()
+
+Starosta.removestudent(first_studend)
+Starosta.showclass()
+
